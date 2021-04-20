@@ -4,6 +4,14 @@ struct Side {
 }; 
 
 typedef enum { 
+    BLUE  = 0,
+    WHITE = 1,
+    RED = 2,
+    GREEN = 3,
+    YELLOW = 4,
+    ORANGE = 5 } T_COLOR ;
+
+typedef enum { 
     UP  = 0,
     FRONT = 1,
     RIGHT = 2,

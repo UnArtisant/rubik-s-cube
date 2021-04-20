@@ -1,8 +1,8 @@
-#include "../headers/rubiks.h"
+#include "rubiks.c"
 
 int main() {
 
-    int * rubiks = create_rubiks(3, 3);
+    Face *** rubiks = create_rubiks(3, 3); 
 
     return 0;
 }

@@ -35,20 +35,21 @@ Face *** create_rubiks(int row, int column) {
    return container;
 }
 
-int select_color(T_COLOR) {
-    switch(T_COLOR)
+int select_color(int color) {
+    switch(color)
     {
         case BLUE  :
-            return C_SIDE = UP;
+            return 0;
         case WHITE :
-            return C_SIDE = FRONT;
+            return 1;
         case RED   :
-            return C_SIDE = RIGHT;
+            return 2;
         case GREEN :
-            return C_SIDE = DOWN;
+            return 3;
         case YELLOW:
-            return C_SIDE = BACK;
+            return 4;
         case ORANGE:
-            return C_SIDE = LEFT;
+            return 5;
     }
+    return 0;
 }

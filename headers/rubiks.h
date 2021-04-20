@@ -1,11 +1,13 @@
 #include <stdio.h>
-#include "../src/rubiks.c"
+#include <stdlib.h>
 
 #ifndef HEADER_FILE
 #define HEADER_FILE
 
+typedef struct Face Face;
+
 int * create_tab(int size);
-int * create_rubiks(int row, int column);
-int select_color(T_COLOR);
+Face *** create_rubiks(int row, int column);
+int select_color(int color);
 
 #endif

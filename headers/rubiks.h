@@ -7,7 +7,8 @@
 typedef struct Face Face;
 
 int * create_tab(int size);
+int side_to_index(char side);
 Face *** create_rubiks(int row, int column);
-int select_color(int color);
+int select_color(char color);
 
 #endif

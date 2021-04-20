@@ -1,9 +1,24 @@
+struct Side {
+  int face[3][3];
+  int c_side;
+}; 
+
+typedef enum { 
+    UP  = 0,
+    FRONT = 1,
+    RIGHT = 2,
+    DOWN = 3,
+    BACK = 4,
+    LEFT = 5
+  } C_SIDE;
+
+
 int * create_tab(int size) {
   return (int *)malloc(size);
 }
 
 /**
- * 
+ * Raphael Barriet, Ahyl Pradhan. 
  * structure rubiks;
  * 
  * int up[3][3]    = { {0,0,0}, {0,0,0}, {0,0,0} };

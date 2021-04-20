@@ -48,3 +48,21 @@ int * create_rubiks(int row, int column) {
    }
    return container;
 }
+
+int select_color(T_COLOR) {
+    switch(T_COLOR)
+    {
+        case BLUE  :
+            return C_SIDE = UP;
+        case WHITE :
+            return C_SIDE = FRONT;
+        case RED   :
+            return C_SIDE = RIGHT;
+        case GREEN :
+            return C_SIDE = DOWN;
+        case YELLOW:
+            return C_SIDE = BACK;
+        case ORANGE:
+            return C_SIDE = LEFT;
+    }
+}

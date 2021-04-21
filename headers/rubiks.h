@@ -10,5 +10,6 @@ int * create_tab(int size);
 int side_to_index(char side);
 Face *** create_rubiks(int row, int column);
 int select_color(char color);
+int move_rubiks(Face *** rubiks);
 
 #endif

@@ -103,3 +103,29 @@ void init_rubiks(Face *** rubiks) {
      }
   } 
 }
+
+/*
+ * void move_rubiks(Face *** rubiks) {
+    int choix_face;
+    int choix_move;
+    do
+    {
+        printf("quelle face voulez-vous bouger ?\n");
+        scanf("%d", &choix_face);
+    } while (choix_face <= 0 || choix_face >= 6);
+        do {
+            printf("Tapez 1 pour tourner la face choisie dans le sens horaire \n Tapez 2 pour tourner la face choisie dans le sens anti-horaire \n Tapez 3 pour faire une rotation horizontale \n Tapez 4 pour faire une rotation verticale");
+            scanf("%d", &choix_move);
+            switch (choix_move) {
+                case 1 :
+
+                case 2 :
+
+                case 3 :
+
+                case 4 : ;
+
+            }
+        } while (choix_move <= 0 || choix_move > 4);
+}
+ */

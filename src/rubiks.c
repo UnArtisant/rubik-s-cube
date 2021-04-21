@@ -8,6 +8,24 @@ struct Face {
   C_SIDE c_side;
 };
 
+char * index_color(int index) {
+   switch(index)
+    {
+        case 0  :
+            return "W";
+        case 1 :
+            return "0";
+        case 2  :
+            return "G";
+        case 3 :
+            return "R";
+        case 4:
+            return "B";
+        case 5 :
+            return "Y";
+    }
+    return "W"; 
+}
 
 /**
  * Raphael Barriet, Ahyl Pradhan.
@@ -90,42 +108,58 @@ Face *** create_rubiks(int row, int column) {
 void init_rubiks(Face *** rubiks) {
   T_COLOR faces[6] = {W, O, G, R, B, Y};
   C_SIDE sides[6] = {FRONT, LEFT, DOWN, RIGHT, UP, BACK};
-  
+
   int i,j, k;
   for(i = 0; i < 6; i++) {
      for(j = 0; j < 3; j++){
        for(k = 0; k < 3; k++) {
-          Face * temp;
-          temp->t_color = faces[i];
-          temp->c_side = sides[i];
-          rubiks[i][j][k] = *temp;
+          Face temp = {faces[i], sides[i]};
+          rubiks[i][j][k] = temp;
        }
      }
   } 
 }
 
-/*
- * void move_rubiks(Face *** rubiks) {
-    int choix_face;
-    int choix_move;
-    do
-    {
-        printf("quelle face voulez-vous bouger ?\n");
-        scanf("%d", &choix_face);
-    } while (choix_face <= 0 || choix_face >= 6);
-        do {
-            printf("Tapez 1 pour tourner la face choisie dans le sens horaire \n Tapez 2 pour tourner la face choisie dans le sens anti-horaire \n Tapez 3 pour faire une rotation horizontale \n Tapez 4 pour faire une rotation verticale");
-            scanf("%d", &choix_move);
-            switch (choix_move) {
-                case 1 :
+void display_rubiks(Face *** rubiks, int row, int column){
 
-                case 2 :
+    int i,j;
+    Face * square;
+    char * over = "\n";
+    char * empty_square = "\n   ";
+    for(i = 0; i < row; i++) {
+      printf("%s", empty_square);
+      for(j = 0; j < column; j++) {
+          square = &rubiks[0][i][j];   
+          printf("%s", index_color(square->t_color));
+      } 
+      printf("%s", over); 
+    }
 
-                case 3 :
+    for(i = 0; i < row; i++) {
+       for(j = 0; j < column; j++) {
+           Face * square = &rubiks[1][i][j];
+           printf("%s", index_color(square->t_color)); 
+       }
+       for(j = 0; j < column; j++) {
+           Face * square = &rubiks[2][i][j];
+           printf("%s", index_color(square->t_color));
+       }
+       for(j = 0; j < column; j++) {
+           Face * square = &rubiks[3][i][j];
+           printf("%s", index_color(square->t_color));
+       }
+       for(j = 0; j < column; j++) {
+           Face * square = &rubiks[4][i][j];
+           printf("%s", index_color(square->t_color));
+       }
+       printf("%s", over); 
+    } 
 
-                case 4 : ;
-
-            }
-        } while (choix_move <= 0 || choix_move > 4);
+    for(i = 0; i < 3; i++) {
+      printf("%s", empty_square);  
+      for(j = 0; j < column; j++) {
+          square = &rubiks[5][i][j];   
+          printf("%s", index_color(square->t_color));
+      } 
+    }   
 }
- */

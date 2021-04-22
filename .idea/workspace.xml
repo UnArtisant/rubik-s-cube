@@ -16,6 +16,7 @@
   <component name="ChangeListManager">
     <list default="true" id="d41b2974-de18-4257-a358-b3d2372f9652" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" beforeDir="false" afterPath="$PROJECT_DIR$/cmake-build-debug/Testing/Temporary/LastTest.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/headers/rubiks.h" beforeDir="false" afterPath="$PROJECT_DIR$/headers/rubiks.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rubiks.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/rubiks.c" afterDir="false" />
     </list>
@@ -61,11 +62,6 @@
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="rubiks_project" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="rubiks_project" TARGET_NAME="rubiks_project" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="rubiks_project" RUN_TARGET_NAME="rubiks_project">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -84,11 +80,25 @@
       <workItem from="1618928609376" duration="1822000" />
       <workItem from="1618930457401" duration="2498000" />
       <workItem from="1618933404056" duration="4051000" />
-      <workItem from="1619012427668" duration="4142000" />
+      <workItem from="1619012427668" duration="5091000" />
+      <workItem from="1619020407953" duration="243000" />
+      <workItem from="1619103575732" duration="2243000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>

@@ -163,3 +163,38 @@ void display_rubiks(Face *** rubiks, int row, int column){
       } 
     }   
 }
+
+void free_rubiks(Face *** rubiks) {
+    int i,j;
+    for(i = 0; i < 6; i++) {
+        for(j = 0; j < 3; j++) {
+                free(rubiks[i][j]);
+        }
+        free(rubiks[i]);
+    }
+    free(rubiks);
+}
+
+void move_rubiks (Face *** rubiks) {
+    int choix_face;
+    int choix_move;
+    do {
+        printf("quelle face souhaitez-vous bouger ?\n");
+        scanf("%d", &choix_face);
+    } while(choix_face < 0 || choix_face > 5);
+    do {
+        printf("Taper 1 pour faire tourner la face dans le sens horaire \nTaper 2 pour la faire tourner dans le sens anti-horaire\nTaper 3 pour faire une rotation horizontale\nTaper 4 pour faire une rotation verticale\n");
+        scanf("%d", &choix_move);
+    } while (choix_move < 0 || choix_move > 4);
+        switch (choix_move) {
+            case 1 :
+
+            case 2 :
+
+            case 3 :
+
+            case 4 :
+
+                ;
+        }
+}

@@ -14,5 +14,8 @@ Face *** create_rubiks(int row, int column);
 int select_color(char color);
 void init_rubiks(Face *** rubiks);
 void display_rubiks(Face *** rubiks, int row, int column);
+void move_rubiks(Face *** rubiks);
+void free_rubiks(Face *** rubiks);
+void move_rubiks(Face *** rubiks);
 
 #endif

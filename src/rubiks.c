@@ -404,3 +404,58 @@ void vertical_rotation(Face *** rubiks) {
    rubiks[UP] = temp;
    rubiks[BACK] = temp_2;
 }
+
+void scramble_rubiks(Face *** rubiks){
+    int random, i, k;
+    k = random_num(20, 50);
+    for(i=0; i < k; i++) {
+        random = random_num(1, 14);
+        printf("%d", random);
+        switch (random) {
+            case 1 :
+                front__clockwise(rubiks,1);
+                break;
+            case 2:
+                front_anticlockwise(rubiks,1);
+                break;
+            case 3:
+                back__clockwise(rubiks,1);
+                break;
+            case 4:
+                back_anticlockwise(rubiks,1);
+                break;
+            case 5:
+                right__clockwise(rubiks,1);
+                break;
+            case 6:
+                right_anticlockwise(rubiks,1);
+                break;
+            case 7:
+                left_anticlockwise(rubiks,1);
+                break;
+            case 8:
+                left_anticlockwise(rubiks,1);
+                break;
+            case 9:
+                up_anticlockwise(rubiks,1);
+                break;
+            case 10:
+                up_anticlockwise(rubiks,1);
+                break;
+            case 11:
+                down__clockwise(rubiks,1);
+                break;
+            case 12:
+                down_anticlockwise(rubiks,1);
+                break;
+            case 13:
+                horizontal_rotation(rubiks);
+                break;
+            case 14:
+                vertical_rotation(rubiks);
+                break;
+            default:
+                printf("Erreur\n");
+        }
+    }
+}

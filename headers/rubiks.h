@@ -33,6 +33,7 @@ void down_anticlockwise(Face *** rubiks, int rotation );
 void right_anticlockwise(Face *** rubiks, int rotation );
 void left_anticlockwise(Face *** rubiks, int rotation );
 
+void scramble_rubiks(Face *** rubiks);
 void front__clockwise(Face *** rubiks, int rotation );
 void back__clockwise(Face *** rubiks, int rotation );
 void up__clockwise(Face *** rubiks, int rotation );

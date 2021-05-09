@@ -44,5 +44,8 @@ void vertical_rotation(Face *** rubiks);
 void horizontal_rotation(Face *** rubiks);
 void rotate_horizontal(Face *** rubiks, int side);
 void rotate(Face *** rubiks, int side);
+void move_rubiks(Face *** rubiks);
+void free_rubiks(Face *** rubiks);
+void move_rubiks(Face *** rubiks);
 
 #endif

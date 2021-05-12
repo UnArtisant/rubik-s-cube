@@ -37,9 +37,11 @@ int * create_tab(int size) {
   return (int *)malloc(size);
 }
 
-int random_num(int min, int max) {
+int random_num(int nMin, int nMax) {
   srand(time(NULL));
-  return (rand() % (max + 1 - min)) + min; 
+  int random = rand()%((nMax+1)-nMin) + nMin;
+  printf("%d", random);
+  return random; 
 }
 /**
  * Raphael Barriet, Ahyl Pradhan.
@@ -68,23 +70,23 @@ int side_to_index(char side){
  * Raphael Barriet, Ahyl Pradhan.
  * Return side from color.
 */
-int select_color(char color) {
+int select_color(int color) {
     switch(color)
     {
         case B  :
-            return UP;
+            return BLUE;
         case W :
-            return FRONT;
+            return WHITE;
         case R  :
-            return RIGHT;
+            return RED;
         case G :
-            return DOWN;
+            return GREEN;
         case Y:
-            return BACK;
+            return YELLOW;
         case O:
-            return LEFT;
+            return MAGENTA;
     }
-    return 0;
+    return LIGHTGRAY;
 }
 
 /**
@@ -141,7 +143,8 @@ void display_rubiks(Face *** rubiks, int row, int column){
     for(i = 0; i < row; i++) {
       printf("%s", empty_square);
       for(j = 0; j < column; j++) {
-          square = &rubiks[0][i][j];   
+          square = &rubiks[0][i][j];  
+          //c_textcolor(select_color(square->t_color)); 
           printf("%s", index_color(square->t_color));
           printf("%s", " ");
       } 
@@ -151,25 +154,30 @@ void display_rubiks(Face *** rubiks, int row, int column){
     for(i = 0; i < row; i++) {
        for(j = 0; j < column; j++) {
            Face * square = &rubiks[1][i][j];
+           //c_textcolor(select_color(square->t_color)); 
            printf("%s", index_color(square->t_color));
            printf("%s", " "); 
        }
        for(j = 0; j < column; j++) {
            Face * square = &rubiks[2][i][j];
+           //c_textcolor(select_color(square->t_color)); 
            printf("%s", index_color(square->t_color));
            printf("%s", " ");
        }
        for(j = 0; j < column; j++) {
            Face * square = &rubiks[3][i][j];
+           //c_textcolor(select_color(square->t_color)); 
            printf("%s", index_color(square->t_color));
            printf("%s", " ");
        }
        for(j = 0; j < column; j++) {
            Face * square = &rubiks[4][i][j];
+           //c_textcolor(select_color(square->t_color)); 
            printf("%s", index_color(square->t_color));
            printf("%s", " ");
        }
        printf("%s", over); 
+       //c_textcolor(select_color(WHITE)); 
     } 
 
     for(i = 0; i < 3; i++) {
@@ -406,12 +414,12 @@ void vertical_rotation(Face *** rubiks) {
 }
 
 void scramble_rubiks(Face *** rubiks){
-    int random, i, k;
-    k = random_num(20, 50);
-    for(i=0; i < k; i++) {
-        random = random_num(1, 14);
-        printf("%d", random);
-        switch (random) {
+    srand(time(NULL));
+    int hasard,i;
+    const int MAX = 14, MIN = 1;
+    for(i=0; i < 50; i++) {
+        hasard = (rand() % (MAX - MIN + 1)) + MIN;
+        switch (hasard) {
             case 1 :
                 front__clockwise(rubiks,1);
                 break;
@@ -475,6 +483,7 @@ void move_rubiks (Face *** rubiks) {
     int choix_move;
     do {
         printf("quelle face souhaitez-vous bouger ?\n");
+        printf("%d : UP, %d : FRONT, %d : DOWN, %d : LEFT, %d : RIGHT, %d : BACK ?\n", UP, FRONT, DOWN, LEFT, RIGHT, BACK);
         scanf("%d", &choix_face);
     } while(choix_face < 0 || choix_face > 5);
     do {
@@ -483,13 +492,48 @@ void move_rubiks (Face *** rubiks) {
     } while (choix_move < 0 || choix_move > 4);
         switch (choix_move) {
             case 1 :
-
+              if(choix_face == UP) {
+                up__clockwise(rubiks, 1);
+              }
+              if(choix_face == FRONT) {
+                 front__clockwise(rubiks, 1); 
+              }
+              if(choix_face == DOWN) {
+                  down__clockwise(rubiks, 1);
+              }
+              if(choix_face == LEFT) {
+                  left__clockwise(rubiks, 1);
+              }
+              if(choix_face == RIGHT) {
+                  right__clockwise(rubiks, 1);
+              }
+              if(choix_face == BACK) {
+                  back__clockwise(rubiks, 1);
+              }
             case 2 :
-
+              if(choix_face == UP) {
+                  up_anticlockwise(rubiks, 1);
+              }
+              if(choix_face == FRONT) {
+                  front_anticlockwise(rubiks,1);
+              }
+              if(choix_face == DOWN) {
+                  down_anticlockwise(rubiks, 1);
+              }
+              if(choix_face == LEFT) {
+                  left_anticlockwise(rubiks, 1);
+              }
+              if(choix_face == RIGHT) {
+                  right_anticlockwise(rubiks, 1);
+              }
+              if(choix_face == BACK) {
+                  back_anticlockwise(rubiks, 1);
+              }
             case 3 :
-
+               horizontal_rotation(rubiks);
             case 4 :
-
+               vertical_rotation(rubiks);
                 ;
         }
+        display_rubiks(rubiks, 3, 3);
 }

@@ -12,7 +12,7 @@ typedef struct Face Face;
 char * index_color(int index);
 
 int side_to_index(char side);
-int select_color(char color);
+int select_color(int color);
 int random_num(int min, int max);
 int opposide_side(int side);
 int * create_tab(int size);
@@ -33,19 +33,18 @@ void down_anticlockwise(Face *** rubiks, int rotation );
 void right_anticlockwise(Face *** rubiks, int rotation );
 void left_anticlockwise(Face *** rubiks, int rotation );
 
-void scramble_rubiks(Face *** rubiks);
 void front__clockwise(Face *** rubiks, int rotation );
 void back__clockwise(Face *** rubiks, int rotation );
 void up__clockwise(Face *** rubiks, int rotation );
 void down__clockwise(Face *** rubiks, int rotation);
 void right__clockwise(Face *** rubiks, int rotation );
 void left__clockwise(Face *** rubiks, int rotation);
+
 void vertical_rotation(Face *** rubiks);
 void horizontal_rotation(Face *** rubiks);
 void rotate_horizontal(Face *** rubiks, int side);
 void rotate(Face *** rubiks, int side);
 void move_rubiks(Face *** rubiks);
 void free_rubiks(Face *** rubiks);
-void move_rubiks(Face *** rubiks);
 
 #endif

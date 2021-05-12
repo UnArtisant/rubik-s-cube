@@ -5,7 +5,6 @@ int main() {
     int column = 3;
     Face *** rubiks = create_rubiks(row, column); 
     init_rubiks(rubiks);
-    scramble_rubiks(rubiks);
-    display_rubiks(rubiks, row, column);
+    move_rubiks(rubiks);
     return 0;
 }

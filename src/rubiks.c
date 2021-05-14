@@ -39,9 +39,7 @@ int * create_tab(int size) {
 
 int random_num(int nMin, int nMax) {
   srand(time(NULL));
-  int random = rand()%((nMax+1)-nMin) + nMin;
-  printf("%d", random);
-  return random; 
+  return rand()%((nMax+1)-nMin) + nMin;
 }
 /**
  * Raphael Barriet, Ahyl Pradhan.
@@ -187,7 +185,8 @@ void display_rubiks(Face *** rubiks, int row, int column){
           printf("%s", index_color(square->t_color));
           printf("%s", " ");
       } 
-    }   
+    }  
+   printf("%s", over);  
 }
 
 void blank_rubiks(Face *** rubiks) {
@@ -206,7 +205,10 @@ void fill_rubiks(Face *** rubiks) {
 } 
 
 
-
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move front side 
+*/
 void front__clockwise(Face *** rubiks, int rotation){
     int i;
     for(i = 0; i < rotation; i++) {
@@ -214,6 +216,10 @@ void front__clockwise(Face *** rubiks, int rotation){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move back side 
+*/
 void back__clockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < rotation; i++) {
@@ -221,12 +227,16 @@ void back__clockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move up side 
+*/
 void up__clockwise(Face *** rubiks, int rotation ){
     int i;
     Face temp, temp_2, temp_3;
     for(i=0; i < rotation; i++) {
         rotate(rubiks, UP);
-    }
+    
 
     for(i=0; i < 3; i++) {
      temp = rubiks[LEFT][i][0];
@@ -240,14 +250,19 @@ void up__clockwise(Face *** rubiks, int rotation ){
 
      rubiks[FRONT][0][i] = temp_3; 
     }
+    }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move right side 
+*/
 void down__clockwise(Face *** rubiks, int rotation ){
     int i;
     Face temp, temp_2, temp_3;
     for(i=0; i < rotation; i++) {
         rotate(rubiks, DOWN);
-    }
+    
 
     for(i=0; i < 3; i++) {
      temp = rubiks[LEFT][i][2];
@@ -261,14 +276,18 @@ void down__clockwise(Face *** rubiks, int rotation ){
 
      rubiks[FRONT][2][i] = temp_3; 
     }
+    }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move right side 
+*/
 void right__clockwise(Face *** rubiks, int rotation ){
     int i;
     Face temp, temp_2, temp_3;
     for(i=0; i < rotation; i++) {
         rotate(rubiks, RIGHT);
-    }
 
     for(i=0; i < 3; i++) {
      temp = rubiks[DOWN][i][2];
@@ -282,14 +301,19 @@ void right__clockwise(Face *** rubiks, int rotation ){
 
      rubiks[FRONT][i][2] = temp_3; 
     }
+    }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move left side 
+*/
 void left__clockwise(Face *** rubiks, int rotation ){
     int i;
     Face temp, temp_2, temp_3;
     for(i=0; i < rotation; i++) {
         rotate(rubiks, LEFT);
-    }
+    
 
     for(i=0; i < 3; i++) {
      temp = rubiks[DOWN][i][0];
@@ -302,6 +326,7 @@ void left__clockwise(Face *** rubiks, int rotation ){
      rubiks[UP][i][2] = temp_2;
 
      rubiks[FRONT][2][i] = temp_3; 
+    }
     }
 }
 
@@ -392,14 +417,12 @@ void rotate(Face *** rubiks, int side) {
     }
     temp_2 = rubiks[side];
     rubiks[side] = temp; 
-    free(temp_2); 
 }
 
 void horizontal_rotation(Face *** rubiks){
    Face ** temp = rubiks[0];
    rubiks[0] = rubiks[5];
    rubiks[5] = temp;
-   free(temp);
 }
 
 void vertical_rotation(Face *** rubiks) {
@@ -467,6 +490,7 @@ void scramble_rubiks(Face *** rubiks){
         }
     }
 }
+
 void free_rubiks(Face *** rubiks) {
     int i,j;
     for(i = 0; i < 6; i++) {
@@ -535,5 +559,39 @@ void move_rubiks (Face *** rubiks) {
                vertical_rotation(rubiks);
                 ;
         }
-        display_rubiks(rubiks, 3, 3);
 }
+
+int menu(Face *** rubiks){
+    int choice;
+    printf("\n------------------------------------------------------------------------------------------\n"
+           "1 : Mélanger    2:Initialiser    3:Vider    4:Jouer    5:REmplir    6:Resoudre    7:Sortir\n"
+           "------------------------------------------------------------------------------------------\n");
+    fflush(stdin);
+    scanf("%d",&choice);
+    switch(choice){
+        case 1:
+            scramble_rubiks(rubiks);
+            break;
+        case 2:
+            init_rubiks(rubiks);
+            break;
+        case 3:
+            blank_rubiks(rubiks);
+            break;
+        case 4:
+            move_rubiks(rubiks);
+            break;
+        case 5:
+            //fillRubiks
+            break;
+        case 6:
+            //résoudre
+            break;
+        case 7:
+            return 0;
+        default:
+            printf("Error\n");
+    }
+    return 1;
+}
+

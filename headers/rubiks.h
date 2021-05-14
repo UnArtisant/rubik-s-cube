@@ -15,6 +15,7 @@ int side_to_index(char side);
 int select_color(int color);
 int random_num(int min, int max);
 int opposide_side(int side);
+int menu(Face *** rubiks);
 int * create_tab(int size);
 
 Face *** create_rubiks(int row, int column);

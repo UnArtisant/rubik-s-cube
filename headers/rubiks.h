@@ -48,4 +48,7 @@ void rotate(Face *** rubiks, int side);
 void move_rubiks(Face *** rubiks);
 void free_rubiks(Face *** rubiks);
 
+//solution
+void step_1(Face *** rubiks);
+
 #endif

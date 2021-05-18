@@ -332,43 +332,43 @@ void left__clockwise(Face *** rubiks, int rotation ){
 
 void front_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        front__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        front__clockwise(rubiks, 1);
     }
 }
 
 void back_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        back__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        back__clockwise(rubiks, 1);
     }
 }
 
 void up_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        up__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        up__clockwise(rubiks, 1);
     }
 }
 
 void down_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        down__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        down__clockwise(rubiks, 1);
     }
 }
 
 void right_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        right__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        right__clockwise(rubiks, 1);
     }
 }
 
 void left_anticlockwise(Face *** rubiks, int rotation ){
     int i;
-    for(i = 0; i < 3; i++) {
-        left__clockwise(rubiks, rotation);
+    for(i = 0; i < 3 * rotation; i++) {
+        left__clockwise(rubiks, 1);
     }
 }
 
@@ -439,7 +439,7 @@ void vertical_rotation(Face *** rubiks) {
 void scramble_rubiks(Face *** rubiks){
     srand(time(NULL));
     int hasard,i;
-    const int MAX = 14, MIN = 1;
+    const int MAX = 12, MIN = 1;
     for(i=0; i < 50; i++) {
         hasard = (rand() % (MAX - MIN + 1)) + MIN;
         switch (hasard) {
@@ -478,12 +478,6 @@ void scramble_rubiks(Face *** rubiks){
                 break;
             case 12:
                 down_anticlockwise(rubiks,1);
-                break;
-            case 13:
-                horizontal_rotation(rubiks);
-                break;
-            case 14:
-                vertical_rotation(rubiks);
                 break;
             default:
                 printf("Erreur\n");
@@ -561,6 +555,144 @@ void move_rubiks (Face *** rubiks) {
         }
 }
 
+//solution step 1
+
+//edges function
+
+void blue_edges(Face *** rubiks) {
+ int i, k; 
+ while( 
+           !(*(&rubiks[UP][1][2].t_color) == B && *(&rubiks[LEFT][1][0].t_color) == W) &&
+           !(*(&rubiks[UP][2][1].t_color) == B && *(&rubiks[BACK][2][1].t_color) == W) 
+         ) 
+    {
+        left__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+
+        if(i > 5) {
+            down__clockwise(rubiks, 1);
+            front__clockwise(rubiks, 1);
+            i = 0;
+        }
+        i++;
+    }
+
+    k = (*(&rubiks[DOWN][1][2].t_color) == G && *(&rubiks[RIGHT][1][0].t_color) == W) ? 1 : 2;
+    down_anticlockwise(rubiks, k);
+}
+
+void green_edges(Face *** rubiks) {
+   int i, k =0;
+   while( 
+           !(*(&rubiks[DOWN][1][2].t_color) == G && *(&rubiks[RIGHT][1][0].t_color) == W) &&
+           !(*(&rubiks[DOWN][2][1].t_color) == G && *(&rubiks[BACK][0][1].t_color) == W) 
+         ) 
+    {
+     down__clockwise(rubiks, 1);
+     back__clockwise(rubiks, 1);
+     if(i > 5) {
+         left__clockwise(rubiks, 1);
+         down__clockwise(rubiks, 1);
+     }
+     i++;
+    }
+    // step 2
+    i=0;
+    k = (*(&rubiks[DOWN][1][2].t_color) == G && *(&rubiks[RIGHT][1][0].t_color) == W) ? 1 : 2;
+    down_anticlockwise(rubiks, k);
+}
+
+void red_edges(Face *** rubiks) {
+   int i, k = 0;
+   while( 
+           !(*(&rubiks[RIGHT][1][2].t_color) == R && *(&rubiks[UP][1][0].t_color) == W) &&
+           !(*(&rubiks[RIGHT][2][1].t_color) == R && *(&rubiks[BACK][1][2].t_color) == W) 
+         ) 
+    {
+     right__clockwise(rubiks, 1);
+     back__clockwise(rubiks, 1);
+     if(i > 5) {
+         down__clockwise(rubiks, 1);
+         back__clockwise(rubiks, 1);
+         down_anticlockwise(rubiks, 1);
+     }
+     i++;
+    }
+
+    //step 3
+    k = (*(&rubiks[RIGHT][1][2].t_color) == R && *(&rubiks[UP][1][0].t_color) == W) ? 1 : 2;
+    right_anticlockwise(rubiks, k); 
+}
+
+void step_1(Face *** rubiks) {
+
+    int i, k = 0;
+
+    // we want the white to be in front
+    if(*(&rubiks[FRONT][1][1].t_color) != W) horizontal_rotation(rubiks);
+    if(*(&rubiks[UP][1][1].t_color) != B) vertical_rotation(rubiks);
+
+    
+    while( 
+           !(*(&rubiks[UP][1][2].t_color) == B && *(&rubiks[LEFT][1][0].t_color) == W) &&
+           !(*(&rubiks[UP][2][1].t_color) == B && *(&rubiks[BACK][2][1].t_color) == W) 
+         ) 
+    {
+        left__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+
+        if(i > 5) {
+            down__clockwise(rubiks, 1);
+            front__clockwise(rubiks, 1);
+            i = 0;
+        }
+        i++;
+    }
+
+    //define the number of rotation he has to do
+    i=0;
+    //step 1
+    k = (*(&rubiks[UP][1][2].t_color) == B && *(&rubiks[LEFT][1][0].t_color) == W) ? 1 : 2;
+    up_anticlockwise(rubiks, k); 
+
+    while( 
+           !(*(&rubiks[DOWN][1][2].t_color) == G && *(&rubiks[RIGHT][1][0].t_color) == W) &&
+           !(*(&rubiks[DOWN][2][1].t_color) == G && *(&rubiks[BACK][0][1].t_color) == W) 
+         ) 
+    {
+     down__clockwise(rubiks, 1);
+     back__clockwise(rubiks, 1);
+     if(i > 5) {
+         left__clockwise(rubiks, 1);
+         down__clockwise(rubiks, 1);
+     }
+     i++;
+    }
+    // step 2
+    i=0;
+    k = (*(&rubiks[DOWN][1][2].t_color) == G && *(&rubiks[RIGHT][1][0].t_color) == W) ? 1 : 2;
+    down_anticlockwise(rubiks, k);
+
+    /**while( 
+           !(*(&rubiks[RIGHT][1][2].t_color) == R && *(&rubiks[UP][1][0].t_color) == W) &&
+           !(*(&rubiks[RIGHT][2][1].t_color) == R && *(&rubiks[BACK][1][2].t_color) == W) 
+         ) 
+    {
+     right__clockwise(rubiks, 1);
+     back__clockwise(rubiks, 1);
+     if(i > 5) {
+         down__clockwise(rubiks, 1);
+         back__clockwise(rubiks, 1);
+         down_anticlockwise(rubiks, 1);
+     }
+     i++;
+    }
+
+    //step 3
+    k = (*(&rubiks[RIGHT][1][2].t_color) == R && *(&rubiks[UP][1][0].t_color) == W) ? 1 : 2;
+    right_anticlockwise(rubiks, k);*/
+}
+
 int menu(Face *** rubiks){
     int choice;
     printf("\n------------------------------------------------------------------------------------------\n"
@@ -585,7 +717,7 @@ int menu(Face *** rubiks){
             //fillRubiks
             break;
         case 6:
-            //résoudre
+            step_1(rubiks);
             break;
         case 7:
             return 0;

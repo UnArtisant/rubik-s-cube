@@ -24,7 +24,7 @@ Face *** create_rubiks(int row, int column);
 void init_rubiks(Face *** rubiks);
 void display_rubiks(Face *** rubiks, int row, int column);
 void fill_rubiks(Face *** rubiks);
-void scramble_rubiks(Face *** rubiks);
+void scramble_rubiks(Face *** rubiks, int num);
 
 //mouvement
 void front_anticlockwise(Face *** rubiks, int rotation );
@@ -43,12 +43,16 @@ void left__clockwise(Face *** rubiks, int rotation);
 
 void vertical_rotation(Face *** rubiks);
 void horizontal_rotation(Face *** rubiks);
-void rotate_horizontal(Face *** rubiks, int side);
 void rotate(Face *** rubiks, int side);
 void move_rubiks(Face *** rubiks);
 void free_rubiks(Face *** rubiks);
 
 //solution
+void blue_edges(Face *** rubiks);
+void red_edges(Face *** rubiks);
+void green_edges(Face *** rubiks);
+void orange_edges(Face *** rubiks);
 void step_1(Face *** rubiks);
+void step_2(Face *** rubiks);
 
 #endif

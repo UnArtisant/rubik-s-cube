@@ -772,6 +772,8 @@ void step_1(Face *** rubiks) {
 void step_2(Face *** rubiks) {
     step2_right(rubiks);
     step2_up(rubiks);
+    step2_down(rubiks);
+    step2_left(rubiks);
 
 } 
 
@@ -945,6 +947,94 @@ void step2_up(Face *** rubiks) {
     right__clockwise(rubiks, 1);
 }
 
+void step2_down(Face *** rubiks) {
+   int i; 
+   while (
+        *(&rubiks[DOWN][2][0].t_color) != G ||
+        *(&rubiks[LEFT][2][2].t_color) != W 
+        ) 
+        {
+            for(i = 0; i < 3; i++) {
+              back__clockwise(rubiks, 1);
+              if(*(&rubiks[DOWN][2][0].t_color) == G &&
+                 *(&rubiks[LEFT][2][2].t_color) == W) 
+              {
+                break;
+              }
+            }
+            
+            if(*(&rubiks[DOWN][2][0].t_color) == G &&
+               *(&rubiks[LEFT][2][2].t_color) == W) 
+              {
+                break;
+              }
+
+            left__clockwise(rubiks, 1);
+            back__clockwise(rubiks, 1);
+            left_anticlockwise(rubiks, 1);
+            back_anticlockwise(rubiks, 1);
+
+            if(*(&rubiks[DOWN][2][0].t_color) == G &&
+                 *(&rubiks[LEFT][2][2].t_color) == W) 
+            {
+               break;
+            }
+
+            left_anticlockwise(rubiks, 1);
+            back__clockwise(rubiks, 1);
+            left__clockwise(rubiks, 1);
+
+            if(*(&rubiks[DOWN][2][0].t_color) == G &&
+                 *(&rubiks[LEFT][2][2].t_color) == W) 
+            {
+               break;
+            }
+        }
+
+        down__clockwise(rubiks, 1);
+        left_anticlockwise(rubiks, 1);
+        down_anticlockwise(rubiks,1);
+        left__clockwise(rubiks,1);
+}
+
+void step2_left(Face *** rubiks) {
+    int i; 
+    while (
+        *(&rubiks[LEFT][2][0].t_color) != O ||
+        *(&rubiks[UP][2][2].t_color) != W 
+        ) 
+        {
+         for(i = 0; i < 3; i++) {
+              back__clockwise(rubiks, 1);
+              if(*(&rubiks[LEFT][2][0].t_color) == O &&
+                 *(&rubiks[UP][2][2].t_color) == W) 
+              {
+                break;
+              }
+         }
+
+         if(*(&rubiks[LEFT][2][0].t_color) == O &&
+                 *(&rubiks[UP][2][2].t_color) == W) 
+         {
+                break;
+         } 
+
+         up__clockwise(rubiks, 1);
+         back__clockwise(rubiks,1);
+         up_anticlockwise(rubiks,1);
+         back_anticlockwise(rubiks,1);
+
+         if(*(&rubiks[LEFT][2][0].t_color) == O &&
+                 *(&rubiks[UP][2][2].t_color) == W) 
+         {
+                break;
+         }
+        } 
+        left__clockwise(rubiks, 1);
+        up_anticlockwise(rubiks,1);
+        left_anticlockwise(rubiks,1);
+        up__clockwise(rubiks,1);
+}
 
 int menu(Face *** rubiks){
     int choice;

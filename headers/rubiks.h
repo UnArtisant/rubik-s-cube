@@ -56,5 +56,7 @@ void step_1(Face *** rubiks);
 void step_2(Face *** rubiks);
 void step2_right(Face *** rubiks);
 void step2_up(Face *** rubiks);
+void step2_down(Face *** rubiks);
+void step2_left(Face *** rubiks);
 
 #endif

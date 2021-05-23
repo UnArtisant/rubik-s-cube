@@ -889,15 +889,15 @@ void step2_up(Face *** rubiks) {
 
       for(i = 0; i < 3; i++) {
           back__clockwise(rubiks, 1);
-          if(*(&rubiks[UP][2][0].t_color) != B ||
-              *(&rubiks[RIGHT][2][2].t_color) != W) 
+          if(*(&rubiks[UP][2][0].t_color) == B &&
+              *(&rubiks[RIGHT][2][2].t_color) == W) 
               {
                 break;
               }
         }
 
-        if(*(&rubiks[UP][2][0].t_color) != B ||
-           *(&rubiks[RIGHT][2][2].t_color) != W) 
+        if(*(&rubiks[UP][2][0].t_color) == B &&
+           *(&rubiks[RIGHT][2][2].t_color) == W) 
           {
             break;
           }  
@@ -907,8 +907,8 @@ void step2_up(Face *** rubiks) {
       right_anticlockwise(rubiks,1);
       back_anticlockwise(rubiks,1);
         
-        if(*(&rubiks[UP][2][0].t_color) != B ||
-           *(&rubiks[RIGHT][2][2].t_color) != W) 
+        if(*(&rubiks[UP][2][0].t_color) == B &&
+           *(&rubiks[RIGHT][2][2].t_color) == W) 
           {
             break;
           }
@@ -917,8 +917,8 @@ void step2_up(Face *** rubiks) {
       back_anticlockwise(rubiks, 2);
       left_anticlockwise(rubiks,1);
         
-        if(*(&rubiks[UP][2][0].t_color) != B ||
-           *(&rubiks[RIGHT][2][2].t_color) != W) 
+        if(*(&rubiks[UP][2][0].t_color) == B &&
+           *(&rubiks[RIGHT][2][2].t_color) == W) 
           {
             break;
           }
@@ -927,8 +927,8 @@ void step2_up(Face *** rubiks) {
       back_anticlockwise(rubiks, 1);
       left__clockwise(rubiks,1); 
 
-      if(*(&rubiks[UP][2][0].t_color) != B ||
-           *(&rubiks[RIGHT][2][2].t_color) != W) 
+      if(*(&rubiks[UP][2][0].t_color) == B &&
+           *(&rubiks[RIGHT][2][2].t_color) == W) 
           {
             break;
           } 

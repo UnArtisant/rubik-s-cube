@@ -54,5 +54,7 @@ void green_edges(Face *** rubiks);
 void orange_edges(Face *** rubiks);
 void step_1(Face *** rubiks);
 void step_2(Face *** rubiks);
+void step2_right(Face *** rubiks);
+void step2_up(Face *** rubiks);
 
 #endif

@@ -770,8 +770,181 @@ void step_1(Face *** rubiks) {
 }
 
 void step_2(Face *** rubiks) {
+    step2_right(rubiks);
+    step2_up(rubiks);
+
+} 
+
+
+void step2_right(Face *** rubiks) {
+   int i;
+
+   while (
+        *(&rubiks[RIGHT][2][0].t_color) != R ||
+        *(&rubiks[DOWN][2][2].t_color) != W 
+        )
+    {
+        for(i = 0; i < 3; i++) {
+          back__clockwise(rubiks, 1);
+          if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+          }
+        }
+
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        down__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        down_anticlockwise(rubiks, 1);
+
+        for(i = 0; i < 3; i++) {
+          back__clockwise(rubiks, 1);
+          if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+          }
+        }
+
+        down_anticlockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        down__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 2);
+
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        up__clockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 1);
+        up_anticlockwise(rubiks, 1);
+
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        up_anticlockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 2);
+        up__clockwise(rubiks, 1);
+
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        right__clockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 1);
+        right_anticlockwise(rubiks,1);
+        
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        right_anticlockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        right__clockwise(rubiks,1);
+        back_anticlockwise(rubiks, 1);
+        
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        left__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        left_anticlockwise(rubiks,1);
+        
+        if(*(&rubiks[RIGHT][2][0].t_color) == R &&
+          *(&rubiks[DOWN][2][2].t_color) == W) {
+              break;
+        }
+
+        left_anticlockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 1);
+        left__clockwise(rubiks,1);
+        
+
+    }
+
+    right__clockwise(rubiks, 1);
+    down_anticlockwise(rubiks, 1);
+    right_anticlockwise(rubiks, 1);
+    down__clockwise(rubiks, 1);
     
 }
+
+void step2_up(Face *** rubiks) {
+   int i; 
+   while (
+        *(&rubiks[UP][2][0].t_color) != B ||
+        *(&rubiks[RIGHT][2][2].t_color) != W 
+        )
+    {
+
+      for(i = 0; i < 3; i++) {
+          back__clockwise(rubiks, 1);
+          if(*(&rubiks[UP][2][0].t_color) != B ||
+              *(&rubiks[RIGHT][2][2].t_color) != W) 
+              {
+                break;
+              }
+        }
+
+        if(*(&rubiks[UP][2][0].t_color) != B ||
+           *(&rubiks[RIGHT][2][2].t_color) != W) 
+          {
+            break;
+          }  
+
+      right__clockwise(rubiks, 1);
+      back__clockwise(rubiks, 1);
+      right_anticlockwise(rubiks,1);
+      back_anticlockwise(rubiks,1);
+        
+        if(*(&rubiks[UP][2][0].t_color) != B ||
+           *(&rubiks[RIGHT][2][2].t_color) != W) 
+          {
+            break;
+          }
+
+      left__clockwise(rubiks, 1);
+      back_anticlockwise(rubiks, 2);
+      left_anticlockwise(rubiks,1);
+        
+        if(*(&rubiks[UP][2][0].t_color) != B ||
+           *(&rubiks[RIGHT][2][2].t_color) != W) 
+          {
+            break;
+          }
+
+      left_anticlockwise(rubiks, 1);
+      back_anticlockwise(rubiks, 1);
+      left__clockwise(rubiks,1); 
+
+      if(*(&rubiks[UP][2][0].t_color) != B ||
+           *(&rubiks[RIGHT][2][2].t_color) != W) 
+          {
+            break;
+          } 
+
+       down_anticlockwise(rubiks, 1);
+       back_anticlockwise(rubiks, 2);
+       down__clockwise(rubiks, 1);
+
+    } 
+
+    up__clockwise(rubiks, 1);
+    right_anticlockwise(rubiks, 1);
+    up_anticlockwise(rubiks, 1);
+    right__clockwise(rubiks, 1);
+}
+
 
 int menu(Face *** rubiks){
     int choice;
@@ -798,6 +971,7 @@ int menu(Face *** rubiks){
             break;
         case 6:
             step_1(rubiks);
+            step_2(rubiks);
             break;
         case 7:
             return 0;

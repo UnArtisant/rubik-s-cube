@@ -418,9 +418,38 @@ void rotate(Face *** rubiks, int side) {
 
 // penser au arrete 
 void horizontal_rotation(Face *** rubiks){
+   int i;
    Face ** temp = rubiks[0];
+
    rubiks[0] = rubiks[5];
    rubiks[5] = temp;
+
+   temp = rubiks[3];
+   rubiks[3] = rubiks[1];
+
+   rubiks[1] = temp;
+
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, DOWN);
+   }
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, LEFT);
+   }
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, UP);
+   }
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, RIGHT);
+   }
+
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, FRONT);
+   }
+
+   for(i = 0; i < 2; i++) {
+       rotate(rubiks, BACK);
+   }
+
 }
 
 //penser au arrete
@@ -775,7 +804,191 @@ void step_2(Face *** rubiks) {
     step2_down(rubiks);
     step2_left(rubiks);
 
-} 
+}
+
+void step_3(Face *** rubiks) {
+    int color, i;
+    while(*(&rubiks[RIGHT][1][0].t_color) != R || 
+          *(&rubiks[RIGHT][1][2].t_color) != R || 
+          *(&rubiks[UP][1][0].t_color) != B || 
+          *(&rubiks[UP][1][2].t_color) != B ||
+          *(&rubiks[LEFT][1][0].t_color) != O || 
+          *(&rubiks[LEFT][1][2].t_color) != O ||
+          *(&rubiks[DOWN][1][0].t_color) != G || 
+          *(&rubiks[DOWN][1][2].t_color) != G ) 
+          {
+
+            for(i =0; i< 4; i++) {
+                if(*(&rubiks[BACK][0][1].t_color) != Y && *(&rubiks[DOWN][2][1].t_color) != Y) {
+                  color = *(&rubiks[DOWN][2][1].t_color);
+                  switch(color) {
+                        case B :
+                            back__clockwise(rubiks, 2);
+                            if(*(&rubiks[BACK][2][1].t_color) == R) {
+                              back__clockwise(rubiks, 1);
+                              right__clockwise(rubiks,1);
+                              back_anticlockwise(rubiks, 1);
+                              right_anticlockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              up_anticlockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              up__clockwise(rubiks, 1);
+                            } else {
+                              back_anticlockwise(rubiks, 1);
+                              left_anticlockwise(rubiks,1);
+                              back__clockwise(rubiks, 1);
+                              left__clockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              up__clockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              up_anticlockwise(rubiks, 1);
+                            }
+                            break;
+                        case R :
+                              back__clockwise(rubiks, 1); 
+                              if(*(&rubiks[BACK][1][2].t_color) == G) {
+                              back__clockwise(rubiks, 1);
+                              down__clockwise(rubiks,1);
+                              back_anticlockwise(rubiks, 1);
+                              down_anticlockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              right_anticlockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              right__clockwise(rubiks, 1);
+                            } else {
+                              back_anticlockwise(rubiks, 1);
+                              up_anticlockwise(rubiks,1);
+                              back__clockwise(rubiks, 1);
+                              up__clockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              right__clockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              right_anticlockwise(rubiks, 1);
+                            }
+                            break; 
+                        case G :
+                              if(*(&rubiks[BACK][0][1].t_color) == O) {
+                              back__clockwise(rubiks, 1);
+                              left__clockwise(rubiks,1);
+                              back_anticlockwise(rubiks, 1);
+                              left_anticlockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              down_anticlockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              down__clockwise(rubiks, 1);
+                            } else {
+                              back_anticlockwise(rubiks, 1);
+                              right_anticlockwise(rubiks,1);
+                              back__clockwise(rubiks, 1);
+                              right__clockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              down__clockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              down_anticlockwise(rubiks, 1);
+                            } 
+                            break;
+                        case O :
+                              back_anticlockwise(rubiks,1);
+                              if(*(&rubiks[BACK][1][0].t_color) == B) {
+                              back__clockwise(rubiks, 1);
+                              up__clockwise(rubiks,1);
+                              back_anticlockwise(rubiks, 1);
+                              up_anticlockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              left_anticlockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              left__clockwise(rubiks, 1);
+                            } else {
+                              back_anticlockwise(rubiks, 1);
+                              down_anticlockwise(rubiks,1);
+                              back__clockwise(rubiks, 1);
+                              down__clockwise(rubiks, 1);
+                              back__clockwise(rubiks, 1);
+                              left__clockwise(rubiks, 1);
+                              back_anticlockwise(rubiks, 1);
+                              left_anticlockwise(rubiks, 1);
+                            } 
+                            break;          
+                 }
+                } else {
+                  back__clockwise(rubiks, 1);
+                }
+            }
+          }
+}
+
+void step_4(Face *** rubiks) {
+
+    if(
+       *(&rubiks[BACK][0][1].t_color) == Y && 
+       *(&rubiks[BACK][1][0].t_color) == Y &&
+       *(&rubiks[BACK][1][2].t_color) == Y && 
+       *(&rubiks[BACK][2][1].t_color) == Y
+       ) {
+           return;
+       }
+
+   if(*(&rubiks[BACK][1][0].t_color) == Y &&
+      *(&rubiks[BACK][2][1].t_color) == Y && 
+      *(&rubiks[BACK][1][2].t_color) != Y &&
+      *(&rubiks[BACK][0][1].t_color) != Y) {
+          back__clockwise(rubiks, 2);
+    }
+
+    if(*(&rubiks[BACK][1][2].t_color) == Y &&
+      *(&rubiks[BACK][2][1].t_color) == Y &&
+      *(&rubiks[BACK][1][0].t_color) != Y) {
+          back_anticlockwise(rubiks, 1);
+    }
+
+    if(*(&rubiks[BACK][1][0].t_color) == Y &&
+      *(&rubiks[BACK][0][1].t_color) == Y &&
+      *(&rubiks[BACK][2][1].t_color) != Y) {
+          back__clockwise(rubiks, 1);
+    }
+  
+   if(
+       *(&rubiks[BACK][0][1].t_color) != Y && 
+       *(&rubiks[BACK][1][0].t_color) != Y &&
+       *(&rubiks[BACK][1][2].t_color) != Y && 
+       *(&rubiks[BACK][2][1].t_color) != Y
+       ) 
+    {
+       left_anticlockwise(rubiks, 1);
+       back_anticlockwise(rubiks, 1);
+       down_anticlockwise(rubiks, 1);
+       back__clockwise(rubiks, 1);
+       down__clockwise(rubiks,1);
+       left__clockwise(rubiks, 1);
+
+    }
+
+    if(*(&rubiks[BACK][1][2].t_color) == Y && *(&rubiks[BACK][0][1].t_color) == Y) 
+    {
+        down__clockwise(rubiks, 1);
+        left__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        left_anticlockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 1);
+        down_anticlockwise(rubiks, 1);
+    }
+
+    if(*(&rubiks[BACK][0][1].t_color) == Y &&  
+       *(&rubiks[BACK][2][1].t_color) == Y) {
+        back__clockwise(rubiks, 1);
+    }
+
+    if(*(&rubiks[BACK][1][2].t_color) == Y && *(&rubiks[BACK][1][0].t_color) == Y) {
+        down__clockwise(rubiks, 1);
+        left__clockwise(rubiks, 1);
+        back__clockwise(rubiks, 1);
+        left_anticlockwise(rubiks, 1);
+        back_anticlockwise(rubiks, 1);
+        down_anticlockwise(rubiks, 1);
+    }
+
+
+}
 
 
 void step2_right(Face *** rubiks) {
@@ -1062,6 +1275,8 @@ int menu(Face *** rubiks){
         case 6:
             step_1(rubiks);
             step_2(rubiks);
+            step_3(rubiks);
+            step_4(rubiks);
             break;
         case 7:
             return 0;

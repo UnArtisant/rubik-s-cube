@@ -68,7 +68,7 @@ int side_to_index(char side){
  * Raphael Barriet, Ahyl Pradhan.
  * Return side from color.
 */
-int select_color(int color) {
+int select_color(char color) {
     switch(color)
     {
         case B  :
@@ -199,10 +199,6 @@ void blank_rubiks(Face *** rubiks) {
       }
     } 
 }
-
-void fill_rubiks(Face *** rubiks) {
-    return;
-} 
 
 
 /**
@@ -356,6 +352,10 @@ void left__clockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move front side anticlockwise
+*/
 void front_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -363,6 +363,10 @@ void front_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move back side anticlockwise
+*/
 void back_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -370,6 +374,10 @@ void back_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move up side anticlockwise
+*/
 void up_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -377,6 +385,10 @@ void up_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move down side anticlockwise
+*/
 void down_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -384,6 +396,10 @@ void down_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move right side anticlockwise
+*/
 void right_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -391,6 +407,10 @@ void right_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move left side anticlockwise
+*/
 void left_anticlockwise(Face *** rubiks, int rotation ){
     int i;
     for(i = 0; i < 3 * rotation; i++) {
@@ -398,7 +418,10 @@ void left_anticlockwise(Face *** rubiks, int rotation ){
     }
 }
 
-
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * rotate a side without adjacent side 
+*/
 void rotate(Face *** rubiks, int side) {
     Face ** temp = (Face **)malloc(3 * sizeof(Face*));
     Face ** temp_2;
@@ -416,7 +439,10 @@ void rotate(Face *** rubiks, int side) {
     rubiks[side] = temp; 
 }
 
-// penser au arrete 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * swipe side 
+*/
 void horizontal_rotation(Face *** rubiks){
    int i;
    Face ** temp = rubiks[0];
@@ -452,7 +478,10 @@ void horizontal_rotation(Face *** rubiks){
 
 }
 
-//penser au arrete
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * swipe vetical side
+*/
 void vertical_rotation(Face *** rubiks) {
    Face ** temp = rubiks[DOWN];
    Face ** temp_2 = rubiks[FRONT];
@@ -464,6 +493,61 @@ void vertical_rotation(Face *** rubiks) {
    rubiks[BACK] = temp_2;
 }
 
+void fill_rubiks(Face *** rubiks){
+    int cpt = 0;
+    int i,j,k;
+    int used[6] = {0};
+    char face = '\0',color = '\0';
+    T_COLOR c;
+    for(i = 0;i<6;i++){
+        for(j = 0;j<3;j++){
+            for(k = 0;k<3;k++){
+                if(*(&rubiks[i][j][k].t_color)!=LG){
+                    cpt++;
+                    used[*(&rubiks[i][j][k].t_color)]++;
+                }
+            }
+        }
+    }
+    while(cpt<54) {
+        printf("Entrer la face a remplir :\n");
+        fflush(stdin);
+        scanf("%c", &face);
+        i = side_to_index(face);
+        do{
+            printf("Entrer la ligne :\n");
+            fflush(stdin);
+            scanf("%d", &j);
+            j--;
+        }while (j<0||j>2);
+        do{
+            printf("Entrer la columns :\n");
+            fflush(stdin);
+            scanf("%d", &k);
+            k--;
+        }while(k<0||k>2);
+        printf("Entrer la couleur :\n");
+        fflush(stdin);
+        scanf("%c", &color);
+        if (*(&rubiks[i][j][k].t_color) == LG)
+            cpt++;
+        else {
+            used[*(&rubiks[i][j][k].t_color)]--;
+        }
+        c = select_color(color);
+        if (used[c] < 9) {
+            used[c]++;
+            *(&rubiks[i][j][k].t_color) = c;
+            display_rubiks(rubiks, 3, 3);
+        } else
+            printf("Cette couleur est déjà utiliser \n");
+    }
+}
+
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * scramble rubiks  
+*/
 void scramble_rubiks(Face *** rubiks, int num){
     srand(time(NULL));
     int hasard,i;
@@ -513,6 +597,10 @@ void scramble_rubiks(Face *** rubiks, int num){
     }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * free allocated space 
+*/
 void free_rubiks(Face *** rubiks) {
     int i,j;
     for(i = 0; i < 6; i++) {
@@ -524,6 +612,10 @@ void free_rubiks(Face *** rubiks) {
     free(rubiks);
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * dashboard player 
+*/
 void move_rubiks (Face *** rubiks) {
     int choix_face;
     int choix_move;
@@ -590,6 +682,10 @@ void move_rubiks (Face *** rubiks) {
 
 //edges function
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get blue edges 
+*/
 void blue_edges(Face *** rubiks) {
  int i, k, j = 0; 
  while( 
@@ -616,6 +712,10 @@ void blue_edges(Face *** rubiks) {
     up_anticlockwise(rubiks, k);
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get green edges 
+*/
 void green_edges(Face *** rubiks) {
    int i,j, k=0;
    while( 
@@ -667,6 +767,10 @@ void green_edges(Face *** rubiks) {
     down_anticlockwise(rubiks, k); 
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get red edges 
+*/
 void red_edges(Face *** rubiks) {
    int i, k, j = 0;
    while( 
@@ -720,6 +824,10 @@ void red_edges(Face *** rubiks) {
     right_anticlockwise(rubiks, k); 
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get orange edges 
+*/
 void orange_edges(Face *** rubiks) {
    int i, k, j = 0;
    while( 
@@ -772,6 +880,10 @@ void orange_edges(Face *** rubiks) {
     left_anticlockwise(rubiks, k); 
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get a white cross 
+*/
 void step_1(Face *** rubiks) {
 
     int i, k = 0;
@@ -798,6 +910,10 @@ void step_1(Face *** rubiks) {
 
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get the crown 
+*/
 void step_2(Face *** rubiks) {
     step2_right(rubiks);
     step2_up(rubiks);
@@ -806,6 +922,10 @@ void step_2(Face *** rubiks) {
 
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get yellow cross 
+*/
 void step_3(Face *** rubiks) {
     int color, i;
     while(*(&rubiks[RIGHT][1][0].t_color) != R || 
@@ -917,6 +1037,10 @@ void step_3(Face *** rubiks) {
           }
 }
 
+/**
+ * Ahyl PRADHAN, Raphael BARRIET
+ * move side to get blue edges 
+*/
 void step_4(Face *** rubiks) {
 
     if(
@@ -933,6 +1057,11 @@ void step_4(Face *** rubiks) {
       *(&rubiks[BACK][1][2].t_color) != Y &&
       *(&rubiks[BACK][0][1].t_color) != Y) {
           back__clockwise(rubiks, 2);
+    }
+
+    if(*(&rubiks[BACK][0][1].t_color) == Y &&  
+       *(&rubiks[BACK][2][1].t_color) == Y) {
+        back__clockwise(rubiks, 1);
     }
 
     if(*(&rubiks[BACK][1][2].t_color) == Y &&
@@ -973,11 +1102,6 @@ void step_4(Face *** rubiks) {
         down_anticlockwise(rubiks, 1);
     }
 
-    if(*(&rubiks[BACK][0][1].t_color) == Y &&  
-       *(&rubiks[BACK][2][1].t_color) == Y) {
-        back__clockwise(rubiks, 1);
-    }
-
     if(*(&rubiks[BACK][1][2].t_color) == Y && *(&rubiks[BACK][1][0].t_color) == Y) {
         down__clockwise(rubiks, 1);
         left__clockwise(rubiks, 1);
@@ -986,7 +1110,7 @@ void step_4(Face *** rubiks) {
         back_anticlockwise(rubiks, 1);
         down_anticlockwise(rubiks, 1);
     }
-
+    
 
 }
 
@@ -1249,6 +1373,47 @@ void step2_left(Face *** rubiks) {
         up__clockwise(rubiks,1);
 }
 
+void step_5(Face *** rubiks) {
+    if(
+       *(&rubiks[BACK][0][0].t_color) != Y  && 
+       *(&rubiks[BACK][0][2].t_color) != Y  &&
+       *(&rubiks[BACK][2][2].t_color) != Y  && 
+       *(&rubiks[BACK][2][0].t_color) != Y  &&
+       *(&rubiks[LEFT][2][0].t_color) == Y  && 
+       *(&rubiks[UP][2][2].t_color) == O    &&
+       *(&rubiks[UP][2][0].t_color) == Y    && 
+       *(&rubiks[RIGHT][2][2].t_color) == B &&
+       *(&rubiks[RIGHT][2][0].t_color) == Y && 
+       *(&rubiks[DOWN][2][2].t_color) == R  &&
+       *(&rubiks[DOWN][2][0].t_color) == Y && 
+       *(&rubiks[LEFT][2][2].t_color) == G
+       ) 
+       {
+        return;
+       }
+
+    if
+    (
+     *(&rubiks[BACK][0][0].t_color) != Y  && 
+     *(&rubiks[BACK][0][2].t_color) != Y  &&
+     *(&rubiks[BACK][2][2].t_color) != Y  && 
+     *(&rubiks[BACK][2][0].t_color) != Y  &&
+     *(&rubiks[LEFT][2][0].t_color) != Y  && 
+     *(&rubiks[UP][2][2].t_color)   != O  &&
+     *(&rubiks[UP][2][0].t_color)   != Y  && 
+     *(&rubiks[RIGHT][2][2].t_color) != B &&
+     *(&rubiks[RIGHT][2][0].t_color) != Y && 
+     *(&rubiks[DOWN][2][2].t_color) != R  &&
+     *(&rubiks[DOWN][2][0].t_color) != Y  && 
+     *(&rubiks[LEFT][2][2].t_color) != G
+    )   
+    {
+
+    }
+
+
+}
+
 int menu(Face *** rubiks){
     int choice;
     printf("\n------------------------------------------------------------------------------------------\n"
@@ -1270,13 +1435,22 @@ int menu(Face *** rubiks){
             move_rubiks(rubiks);
             break;
         case 5:
-            //fillRubiks
+            fill_rubiks(rubiks);
             break;
         case 6:
             step_1(rubiks);
+            printf("Etape 1 : croix blanche");
+            display_rubiks(rubiks, 3, 3);
             step_2(rubiks);
+            printf("Etape 2 : les edges");
+            display_rubiks(rubiks, 3, 3);
             step_3(rubiks);
+            printf("Etape 3 : les couronnes");
+            display_rubiks(rubiks, 3, 3);
             step_4(rubiks);
+            printf("Etape 4 : la croix jaune");
+            display_rubiks(rubiks, 3, 3);
+            step_5(rubiks);
             break;
         case 7:
             return 0;

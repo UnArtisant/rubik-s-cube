@@ -12,7 +12,7 @@ typedef struct Face Face;
 char * index_color(int index);
 
 int side_to_index(char side);
-int select_color(int color);
+int select_color(char color);
 int random_num(int min, int max);
 int opposide_side(int side);
 int menu(Face *** rubiks);
